@@ -89,6 +89,7 @@ export const analyzeQuery = async (
   `;
 
   try {
+    // We use Flash for routing because it needs to be fast
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview", 
       contents: prompt,
@@ -165,17 +166,18 @@ export const answerWithContext = async (
   // --- SCENARIO 2: GENERAL KNOWLEDGE (No Doc) ---
   else if (intent === 'GENERAL_KNOWLEDGE' || (intent === 'TECHNICAL_PROCEDURE' && !doc)) {
     systemInstruction = `
-      IDENTITÉ : Tu es SecoursTech, l'assistant expert des Sapeurs-Pompiers.
+      IDENTITÉ : Tu es SecoursTech, l'assistant expert des Sapeurs-Pompiers (Instructeur École du Feu).
       
-      RÈGLE D'OR : TON NEUTRE ET PROFESSIONNEL.
-      - Tu n'es pas une personne physique, tu es une IA d'aide à la décision et à la formation.
-      - Si on te demande qui tu es : "Je suis SecoursTech, l'assistant numérique opérationnel."
-      - Ne t'invente pas de grade (Sergent, Capitaine, etc.).
+      RÈGLE D'OR : TON NEUTRE, PROFESSIONNEL ET PRÉCIS.
+      - Tu t'adresses à des professionnels (SPP/SPV).
+      - Utilise le vocabulaire technique strict (GDO, GNR, BSPP, SUAP).
       
-      Consignes :
-      1. Utilise le vocabulaire BSPP/SDIS précis.
-      2. Réponds directement à la question.
-      3. Si la question sort du domaine pompier, refuse poliment mais fermement.
+      STRUCTURE DES RÉPONSES :
+      - Pour une définition (ex: nomenclature, matériel) : Réponse courte et factuelle.
+      - Pour une procédure (ex: AVP, Incendie) : Réponse structurée (1. Sécurité, 2. Bilan, 3. Action).
+      
+      Si la question est technique mais sans document de référence :
+      - Précise : "(Réponse basée sur les connaissances générales Sapeurs-Pompiers - Veuillez vous référer au GDO local)".
     `;
   }
 
@@ -185,13 +187,29 @@ export const answerWithContext = async (
         const base64Data = await urlToBase64(doc.path);
         
         systemInstruction = `
-          IDENTITÉ : Tu es SecoursTech, l'Assistant Opérationnel.
-          Ta source prioritaire est le document : ${doc.name}.
+          IDENTITÉ : Tu es SecoursTech, Assistant Opérationnel Expert.
+          SOURCE UNIQUE : Le document PDF joint (${doc.name}).
           
-          CONSIGNES DE RÉPONSE :
-          1. **Priorité au Document** : Si la réponse est dans le PDF, utilise-la.
-          2. **Connaissances Complémentaires** : Si le document ne précise pas un détail technique (ex: nombre de tuyaux sur une LDT, capacité citerne FPT), tu es AUTORISÉ à utiliser tes connaissances générales de pompier pour répondre, mais tu dois préciser "(Selon connaissances générales/véhicules standards)".
-          3. **Style** : Direct, Opérationnel, Listes à puces. Pas de phrases inutiles.
+          CONSIGNES CRITIQUES DE RÉDACTION :
+          
+          1. **CITATIONS OBLIGATOIRES** : 
+             - Tu dois citer textuellement les passages importants du document pour justifier ta réponse.
+             - Format : "... _[citation du texte]_ ..."
+          
+          2. **ADAPTABILITÉ (FACTUEL vs MANŒUVRE)** :
+             - **Si la question demande un fait** (ex: "Longueur tuyau", "Pression nominale") : Sois direct, concis. Pas de blabla.
+             - **Si la question demande une manœuvre ou conduite à tenir** : Sois EXHAUSTIF.
+          
+          3. **ROLES OPÉRATIONNELS (IMPORTANT)** :
+             - Pour les explications de manœuvres ou d'interventions, DÉCOMPOSE les actions par grade si le document le permet ou si cela est pertinent :
+             - **ÉQUIPIER** : Actions d'exécution, sécurité immédiate.
+             - **CHEF D'ÉQUIPE (CE)** : Commandement de binôme, compte-rendu.
+             - **CHEF D'AGRÈS (CA)** : Gestion de l'engin, idée de manœuvre, sécurité globale, lien COS.
+          
+          4. **CLARTÉ** :
+             - Utilise des listes à puces.
+             - Mets en **GRAS** les mots clés (sécurité, danger, ordre).
+             - Si un passage du document est flou, indique-le honnêtement.
         `;
         
         const historyText = historyParts.map(p => `${p.role === 'user' ? 'Question Précédente' : 'Réponse Précédente'}: ${p.parts[0].text}`).join("\n\n");
@@ -199,17 +217,21 @@ export const answerWithContext = async (
         const contentParts = [
           { text: `CONTEXTE DE LA CONVERSATION:\n${historyText}\n\n--- DOCUMENT DE RÉFÉRENCE ---` },
           { inlineData: { mimeType: "application/pdf", data: base64Data } },
-          { text: `NOUVELLE QUESTION OPÉRATIONNELLE: ${query}` }
+          { text: `NOUVELLE QUESTION OPÉRATIONNELLE DU POMPIER: ${query}` }
         ];
 
-        // SWITCHED TO FLASH FOR SPEED (Removed "pro" and thinking budget)
-        const modelName = "gemini-3-flash-preview";
+        // PERFORMANCE vs INTELLIGENCE :
+        // Pour lire un PDF technique, comprendre la hiérarchie et faire des citations précises,
+        // on utilise le modèle PRO (plus intelligent) au lieu du Flash.
+        const modelName = "gemini-3-pro-preview";
 
         const response = await ai.models.generateContent({
           model: modelName,
           contents: { parts: contentParts },
           config: {
             systemInstruction: systemInstruction,
+            // Low temperature for factual accuracy
+            temperature: 0.2, 
           }
         });
 
@@ -224,20 +246,21 @@ export const answerWithContext = async (
       }
   }
 
-  // For non-doc scenarios
+  // For non-doc scenarios (Chitchat, General Knowledge)
   try {
     const finalContents = [
         ...historyParts,
         { role: 'user', parts: [{ text: query }] }
     ];
 
+    // Keep Flash for simple interactions to remain fast
     const modelName = "gemini-3-flash-preview";
 
     const response = await ai.models.generateContent({
         model: modelName,
         contents: finalContents,
         config: {
-        systemInstruction: systemInstruction,
+          systemInstruction: systemInstruction,
         }
     });
 
