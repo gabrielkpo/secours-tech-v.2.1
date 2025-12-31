@@ -4,11 +4,11 @@
 
 Un assistant intelligent basé sur l'IA pour aider les Sapeurs-Pompiers dans leurs missions quotidiennes en s'appuyant sur les référentiels officiels (GDO, GNR, SSUAP).
 
+**Technologies :** React, Vite, TailwindCSS
+
 
 <img width="1111" height="599" alt="Capture d’écran 2025-12-31 à 14 41 21" src="https://github.com/user-attachments/assets/8ee32643-36a1-4042-b13b-f6b2321ae9c7" />
 
-
-**Technologies :** React, Vite, TailwindCSS
 
 ---
 
