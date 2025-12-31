@@ -1,10 +1,12 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 
 # 🚒 SecoursTech - Assistant Opérationnel Sapeurs-Pompiers
 </div>
 
 Un assistant intelligent basé sur l'IA pour aider les Sapeurs-Pompiers dans leurs missions quotidiennes en s'appuyant sur les référentiels officiels (GDO, GNR, SSUAP).
+
+
+<img width="1111" height="599" alt="Capture d’écran 2025-12-31 à 14 41 21" src="https://github.com/user-attachments/assets/8ee32643-36a1-4042-b13b-f6b2321ae9c7" />
+
 
 **Technologies :** React, Vite, TailwindCSS
 
