@@ -44,13 +44,6 @@ export const PRELOADED_DOCUMENTS: TechDocument[] = [
 
   // --- SAP (Secours à Personne) ---
   {
-    id: 'sap-01',
-    name: 'GDO SSUAP (Secours Urgence)',
-    filename: 'GDO-SSUAP-V1.1.pdf',
-    category: 'SAP',
-    path: '/documents/GDO-SSUAP-V1.1.pdf'
-  },
-  {
     id: 'sap-02',
     name: 'GDO Milieu Routier (SR)',
     filename: 'GDO_OPERATIONS_MILIEU_ROUTIER_2025_DGSCGC.pdf',
