@@ -80,6 +80,7 @@ export const analyzeQuery = async (
 
     CRITICAL CONTEXT RULES:
     - If the user asks about a specific term (e.g., "What about the manometer?", "How do I use it?") and the PREVIOUS conversation was about a specific topic (e.g., "ARI", "LDT"), YOU MUST MAINTAIN THAT CONTEXT.
+    - **PRIORITY RULE**: For operational techniques (ventilation, rescue, firefighting methods), ALWAYS prioritize **GTO** (Guides de Techniques Opérationnelles) over GDO if both are available, as GTOs contain the specific "how-to" procedures.
     
     Output JSON format:
     {
