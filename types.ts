@@ -11,7 +11,7 @@ export interface TechDocument {
   id: string;
   name: string;      // Display name (e.g. "GDO Incendie")
   filename: string;  // Actual file name (e.g. "gdo_incendie_v2.pdf")
-  category: 'INCENDIE' | 'SAP' | 'NRBC' | 'OPÉRATIONNEL' | 'DIVERS';
+  category: 'INCENDIE' | 'SAP' | 'NRBC' | 'OPÉRATIONNEL' | 'DIVERS' | 'GTO';
   path: string;      // Path relative to public folder (e.g. "/documents/file.pdf")
 }
 

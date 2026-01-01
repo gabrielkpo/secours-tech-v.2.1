@@ -57,6 +57,20 @@ export const PRELOADED_DOCUMENTS: TechDocument[] = [
     category: 'SAP',
     path: '/documents/GDO_OPERATIONS_MILIEU_ROUTIER_2025_DGSCGC.pdf'
   },
+  {
+    id: 'sap-03',
+    name: 'PSE 2024',
+    filename: '2024 PSE.pdf',
+    category: 'SAP',
+    path: '/documents/2024 PSE.pdf'
+  },
+  {
+    id: 'sap-04',
+    name: 'Recueil PSE',
+    filename: 'Recueil PSE.pdf',
+    category: 'SAP',
+    path: '/documents/Recueil PSE.pdf'
+  },
 
   // --- NRBC / RISQUES TECH ---
   {
@@ -79,6 +93,20 @@ export const PRELOADED_DOCUMENTS: TechDocument[] = [
     filename: 'GDO-Prevention-Risques-Toxicite-Fumees.pdf',
     category: 'NRBC',
     path: '/documents/GDO-Prevention-Risques-Toxicite-Fumees.pdf'
+  },
+  {
+    id: 'risk-04',
+    name: 'GDO Éoliennes',
+    filename: 'GDO_Interventions_dans_les_eoliennes_2019.pdf',
+    category: 'NRBC',
+    path: '/documents_2/GDO_Interventions_dans_les_eoliennes_2019.pdf'
+  },
+  {
+    id: 'risk-05',
+    name: 'GDO Photovoltaïque',
+    filename: 'GDO-PPV_Interventions_elements_photovoltaiques_2017.pdf',
+    category: 'NRBC',
+    path: '/documents_2/GDO-PPV_Interventions_elements_photovoltaiques_2017.pdf'
   },
 
   // --- DOSSIER 2 : /documents_2/ (Opérationnel, Divers) ---
@@ -141,7 +169,79 @@ export const PRELOADED_DOCUMENTS: TechDocument[] = [
     filename: 'GDO-Interventions-en-presence-ULM.pdf',
     category: 'DIVERS',
     path: '/documents_2/GDO-Interventions-en-presence-ULM.pdf'
+  },
+
+  // --- DOSSIER GTO ---
+  {
+    id: 'gto-01',
+    name: 'GTO Feux de Forêts',
+    filename: 'GTO_FDF_1e-edition_2021_BDFE_DGSCGC.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO_FDF_1e-edition_2021_BDFE_DGSCGC.pdf'
+  },
+  {
+    id: 'gto-02',
+    name: 'GTO Sauvetage et Mise en Sécurité',
+    filename: 'GTO_Sauvetage-Et-Mise-En-Securite-V1.1_BDFE_DGSCGC.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO_Sauvetage-Et-Mise-En-Securite-V1.1_BDFE_DGSCGC.pdf'
+  },
+  {
+    id: 'gto-03',
+    name: 'GTO Milieu Vicié (2019)',
+    filename: 'GTO-Engagement-en-milieu-vicie_2019.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-Engagement-en-milieu-vicie_2019.pdf'
+  },
+  {
+    id: 'gto-04',
+    name: 'GTO Milieux Viciés V2',
+    filename: 'GTO-Engagement-Milieux-Vicies-V2.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-Engagement-Milieux-Vicies-V2.pdf'
+  },
+  {
+    id: 'gto-05',
+    name: 'GTO Établissements Techniques Extinction',
+    filename: 'GTO-etablissements-techniques-extinction-2018.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-etablissements-techniques-extinction-2018.pdf'
+  },
+  {
+    id: 'gto-06',
+    name: 'GTO Sauvegarde Opérationnelle',
+    filename: 'GTO-Sauvegarde-Operationnelle.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-Sauvegarde-Operationnelle.pdf'
+  },
+  {
+    id: 'gto-07',
+    name: 'GTO Sauvetages V2',
+    filename: 'GTO-Sauvetages-Mise-En-Securite-V2.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-Sauvetages-Mise-En-Securite-V2.pdf'
+  },
+  {
+    id: 'gto-08',
+    name: 'GTO SMPM',
+    filename: 'GTO-SMPM-.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-SMPM-.pdf'
+  },
+  {
+    id: 'gto-09',
+    name: 'GTO USAR',
+    filename: 'GTO-USARVF1.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-USARVF1.pdf'
+  },
+  {
+    id: 'gto-10',
+    name: 'GTO Ventilation Opérationnelle',
+    filename: 'GTO-ventilation-operationnelle_VF_2019.pdf',
+    category: 'GTO',
+    path: '/GTO/GTO-ventilation-operationnelle_VF_2019.pdf'
   }
 ];
 
-export const CATEGORIES = ['INCENDIE', 'SAP', 'NRBC', 'OPÉRATIONNEL', 'DIVERS'] as const;
+export const CATEGORIES = ['INCENDIE', 'SAP', 'NRBC', 'OPÉRATIONNEL', 'DIVERS', 'GTO'] as const;
